@@ -1,0 +1,32 @@
+<!doctype html>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/simon.css') }}">
+<title>Simon Says</title>
+<div class=page>
+  <h1>simon says</h1>
+  <div class="main">
+  <svg width="600" height="600">
+    <rect id="top-left" width="295" height="295" rx="20" ry="20"/>
+    <rect id="top-right" x="300" width="295" height="295" rx="20" ry="20"/>
+    <rect id="bottom-left" y="300" width="295" height="295" rx="20" ry="20"/>
+    <rect id="bottom-right" x="300" y="300" width="295" height="295" rx="20" ry="20"/>
+  </svg>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+	$('#top-left').click(function(){ toggleColour('#top-left')})
+	$('#top-right').click(function(){ toggleColour('#top-right')})
+	$('#bottom-left').click(function(){ toggleColour('#bottom-left')})
+	$('#bottom-right').click(function(){ toggleColour('#bottom-right')})
+});
+
+function toggleColour(id){
+	var originalColour = $(id).css('fill')
+	$(id).css('fill', 'grey')
+	setTimeout(function() {
+	    $(id).css('fill', originalColour)
+  	}, 125);
+}
+</script>
