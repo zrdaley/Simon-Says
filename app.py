@@ -9,6 +9,7 @@ app.debug = True
 
 moves = []
  
+ 
 @app.route("/")
 def simon_says():
 	app.logger.info('/')
@@ -29,9 +30,6 @@ def check_move():
 	simons_moves = data.get('simons_moves')
 	users_moves = data.get('moves')
 
-	app.logger.info(simons_moves)
-	app.logger.info(users_moves)
-
 	# This shouldn't ever happen, but just to be safe
 	len_users_moves = len(users_moves)
 	len_simons_moves = len(simons_moves)
@@ -44,19 +42,7 @@ def check_move():
 		return json.dumps({'valid': True})
 	return json.dumps({'valid': False})
 
-
  
 if __name__ == "__main__":
 	app.run()
 
-
-
-# request {
-# 	'moves'
-# 	'timeout'
-# }
-
-# return {
-# 	'moves': [],
-# 	'timeout': 5s min-20s max,
-# }
