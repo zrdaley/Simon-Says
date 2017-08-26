@@ -3,10 +3,6 @@
     --default-yellow: #ffe787;
 }
 
-main {
-	text-align: center;
-}
-
 svg {
 	display: block;
 	margin: auto;
@@ -14,9 +10,11 @@ svg {
 
 h1 {
 	text-align: center;
-	font-family: helvetica;
+	font-family: Courier New;
 	font-weight: lighter;
 	color: var(--default-grey);
+	display: inline-block;
+	margin: 40px;
 }
 
 rect:hover {
@@ -46,24 +44,51 @@ rect:hover {
 	font-family: helvetica;
 	font-weight: bold;
 	color: white;
-
 }
 
 #retry {
-  font-family: helvetica;
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: bold;
-  background: var(--default-grey);
-  padding: 10px 20px;
-  text-decoration: none;
-  border: none;
-  margin: 20px;
+	font-family: helvetica;
+	color: #ffffff;
+	font-size: 14px;
+	font-weight: bold;
+	background: var(--default-grey);
+	padding: 10px 20px;
+	text-decoration: none;
+	border: none;
+	margin: 20px;
 }
 
 #retry:hover {
-  background: var(--default-yellow);
-  text-decoration: none;
+	background: var(--default-yellow);
+	text-decoration: none;
+}
+
+#yourScore {
+	text-align: center;
+	font-family: helvetica;
+	font-weight: bold;
+	font-size: 40px;
+	fill: var(--default-grey);
+}
+
+.cat {
+	height: 200px;
+	display:inline-block;
+}
+
+.column {
+	float: center;
+	vertical-align:middle;
+	display: table-cell;
+  	text-align: center;
+	width: 33%;
+	height: 420px;
+}
+
+.row {
+	display: table;
+	text-align: center;
+	width: 100%;
 }
 
 .timer {

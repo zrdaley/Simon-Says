@@ -49,10 +49,14 @@ function click(id, responseTime){
   axios.post('/check-move', {moves: moves, simons_moves: simons_moves})
       .then(res => {
         if (!res.data.valid){
+          $("#yourScore").html(res.data.user)
+          $("#simonsScore").html(res.data.simon)
           loss()
         }
         else if(moves.length == simons_moves.length){
           moves = []
+          $("#yourScore").html(res.data.user)
+          $("#simonsScore").html(res.data.simon)
           ReactDOM.unmountComponentAtNode(document.getElementById('container'))
           ReactDOM.render(<Timer />, document.getElementById('container'))
         }
@@ -70,11 +74,11 @@ function clickResponse(id, timeout){
 class Timer extends React.Component {
   constructor(props) {
     super(props)
-    axios.post('/get-move', {moves: simons_moves})
+    axios.post('/get-move', {moves: simons_moves, new: true})
         .then(res => {
-          simons_moves = res.data
+          simons_moves = res.data.moves
           setTimeout(function() {
-            mockMoves(res.data)
+            mockMoves(res.data.moves)
           }, 600)
         })
     this.state = {secondsElapsed: 30}
@@ -99,14 +103,18 @@ class Timer extends React.Component {
       axios.post('/check-move', {moves: moves, simons_moves: simons_moves, timeout: true})
         .then(res => {
           if (!res.data.valid){
+            $("#yourScore").html(res.data.user)
+            $("#simonsScore").html(res.data.simon)
             loss()
           } else {
             axios.post('/get-move', {moves: simons_moves})
               .then(res => {
                 this.state.secondsElapsed = 30
-                simons_moves = res.data
+                simons_moves = res.data.moves
+                $("#yourScore").html(res.data.user)
+                $("#simonsScore").html(res.data.simon)
                 setTimeout(function() {
-                  mockMoves(res.data)
+                  mockMoves(res.data.moves)
                 }, 600)
               })
           }

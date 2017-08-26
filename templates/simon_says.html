@@ -1,15 +1,31 @@
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/simon.css') }}"/>
 <title>Simon Says</title>
 <div class=page>
-  <h1>simon says</h1>
-  <div class="main">
-    <svg width="400" height="400">
-      <rect id="top-left" width="195" height="195" rx="20" ry="20"/>
-      <rect id="top-right" x="200" width="195" height="195" rx="20" ry="20"/>
-      <rect id="bottom-left" y="200" width="195" height="195" rx="20" ry="20"/>
-    <rect id="bottom-right" x="200" y="200" width="195" height="195" rx="20" ry="20"/>
+  <div class="row">
+    <h1>simon says</h1>
+  </div>
+  <div class="row">
+  	<div class='column'>
+  	  <img class="cat" src="{{ url_for('static', filename='img/cat1.jpg') }}">
+  	</div>
+  	<div class='column'>
+      <svg width="400" height="400">
+        <rect id="top-left" width="195" height="195" rx="20" ry="20"/>
+        <rect id="top-right" x="200" width="195" height="195" rx="20" ry="20"/>
+        <rect id="bottom-left" y="200" width="195" height="195" rx="20" ry="20"/>
+        <rect id="bottom-right" x="200" y="200" width="195" height="195" rx="20" ry="20"/>
+        <g>
+          <circle cx="200" cy="200" r="40" fill="white"/>
+          <text id="yourScore" x="189" y="212"></text>
+        </g>
+      </svg>
+    </div>
+    <div class='column'>
+      <img class="cat" src="{{ url_for('static', filename='img/cat2.jpg') }}">
+    </div>
+  </div>
+  <div class="row">
     <div id='container'></div>
-</svg>
   </div>
 </div>
 
