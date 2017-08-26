@@ -1,3 +1,8 @@
+:root {
+    --default-grey: #a1a1a1;
+    --default-yellow: #ffe787;
+}
+
 main {
 	text-align: center;
 }
@@ -11,7 +16,7 @@ h1 {
 	text-align: center;
 	font-family: helvetica;
 	font-weight: lighter;
-	color: grey;
+	color: var(--default-grey);
 }
 
 rect:hover {
@@ -44,11 +49,28 @@ rect:hover {
 
 }
 
+#retry {
+  font-family: helvetica;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: bold;
+  background: var(--default-grey);
+  padding: 10px 20px;
+  text-decoration: none;
+  border: none;
+  margin: 20px;
+}
+
+#retry:hover {
+  background: var(--default-yellow);
+  text-decoration: none;
+}
+
 .timer {
-	background-color: grey;
+	background-color: var(--default-yellow);
 	display: inline-block;
 	padding: 10px 50px;
 	display: table;
-  	margin: 0 auto;
+  	margin: 20px auto;
 }
 

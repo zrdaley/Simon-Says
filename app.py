@@ -9,7 +9,7 @@ app.debug = True
 
 moves = []
  
- 
+
 @app.route("/")
 def simon_says():
 	app.logger.info('/')
@@ -29,13 +29,19 @@ def check_move():
 	data = json.loads(request.data)
 	simons_moves = data.get('simons_moves')
 	users_moves = data.get('moves')
-
-	# This shouldn't ever happen, but just to be safe
+	timeout = data.get('timeout')
 	len_users_moves = len(users_moves)
 	len_simons_moves = len(simons_moves)
-	if len_users_moves > len_simons_moves:
+
+	if len_users_moves == 0:
 		return json.dumps({'valid': False})
 
+	if timeout and len_users_moves < len_simons_moves:
+		return json.dumps({'valid': False})
+		
+	# This shouldn't ever happen, but just to be safe
+	if len_users_moves > len_simons_moves:
+		return json.dumps({'valid': False})
 
 	simons_moves = simons_moves[:len_users_moves]
 	if simons_moves == users_moves:

@@ -16,11 +16,23 @@ var rev_moves_dictionary = {
 }
 
 $(document).ready(function () {
+  ReactDOM.render(<Timer />, document.getElementById('container'))
   $('#top-left').click(function(){ click('#top-left', false, 50)})
   $('#top-right').click(function(){ click('#top-right', false, 50)})
   $('#bottom-left').click(function(){ click('#bottom-left', false, 50)})
   $('#bottom-right').click(function(){ click('#bottom-right', false, 50)})
 })
+
+function loss(){
+  ReactDOM.unmountComponentAtNode(document.getElementById('container'))
+  simons_moves = []
+  moves = []
+  var retry = $('<button id="retry">LOSS. TRY AGAIN?</button>')
+  retry.click(function () {
+        ReactDOM.render(<Timer />, document.getElementById('container'))
+  })
+  $("#container").html(retry)
+}
 
 function mockMoves(moves, index=0) {
   clickResponse(rev_moves_dictionary[moves[index]], 100)
@@ -37,9 +49,9 @@ function click(id, responseTime){
   axios.post('/check-move', {moves: moves, simons_moves: simons_moves})
       .then(res => {
         if (!res.data.valid){
-          alert("LOSS")
+          loss()
         }
-        if(moves.length == simons_moves.length){
+        else if(moves.length == simons_moves.length){
           moves = []
           ReactDOM.unmountComponentAtNode(document.getElementById('container'))
           ReactDOM.render(<Timer />, document.getElementById('container'))
@@ -84,10 +96,10 @@ class Timer extends React.Component {
 
   render() {
     if(this.state.secondsElapsed < 0){
-      axios.post('/check-move', {moves: moves, simons_moves: simons_moves})
+      axios.post('/check-move', {moves: moves, simons_moves: simons_moves, timeout: true})
         .then(res => {
           if (!res.data.valid){
-            alert("LOSS")
+            loss()
           } else {
             axios.post('/get-move', {moves: simons_moves})
               .then(res => {
@@ -105,5 +117,3 @@ class Timer extends React.Component {
     )
   }
 }
-
-ReactDOM.render(<Timer />, document.getElementById('container'))
