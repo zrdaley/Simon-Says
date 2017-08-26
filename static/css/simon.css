@@ -32,6 +32,23 @@ rect:hover {
 }
 
 #bottom-right {
-	fill: #87b6a7
+	fill: #87b6a7;
+}
+
+#container {
+	width: 100%;
+	text-align: center;
+	font-family: helvetica;
+	font-weight: bold;
+	color: white;
+
+}
+
+.timer {
+	background-color: grey;
+	display: inline-block;
+	padding: 10px 50px;
+	display: table;
+  	margin: 0 auto;
 }
 
