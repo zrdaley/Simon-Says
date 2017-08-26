@@ -23,13 +23,12 @@ $(document).ready(function () {
 })
 
 function mockMoves(moves, index=0) {
-  clickResponse(rev_moves_dictionary[moves[index]], 600)
+  clickResponse(rev_moves_dictionary[moves[index]], 100)
     setTimeout(function() {
       if (moves.length !== 0 && moves[index + 1] != undefined) {
         mockMoves(moves, index+1)
-        console.log(moves)
       }
-    }, 1000)
+    }, 400)
 }
 
 function click(id, responseTime){
@@ -42,13 +41,8 @@ function click(id, responseTime){
         }
         if(moves.length == simons_moves.length){
           moves = []
-          axios.post('/get-move', {moves: simons_moves})
-              .then(res => {
-                simons_moves = res.data
-                setTimeout(function() {
-                  mockMoves(res.data)
-                }, 1000)
-              })
+          ReactDOM.unmountComponentAtNode(document.getElementById('container'))
+          ReactDOM.render(<Timer />, document.getElementById('container'))
         }
       })
 }
@@ -58,7 +52,6 @@ function clickResponse(id, timeout){
   $(id).css('fill', 'grey')
   setTimeout(function() {
       $(id).css('fill', originalColour)
-      console.log('yo')
     }, timeout)
 }
 
@@ -68,7 +61,9 @@ class Timer extends React.Component {
     axios.post('/get-move', {moves: simons_moves})
         .then(res => {
           simons_moves = res.data
-          mockMoves(res.data)
+          setTimeout(function() {
+            mockMoves(res.data)
+          }, 600)
         })
     this.state = {secondsElapsed: 30}
   }
@@ -98,7 +93,9 @@ class Timer extends React.Component {
               .then(res => {
                 this.state.secondsElapsed = 30
                 simons_moves = res.data
-                mockMoves(res.data)
+                setTimeout(function() {
+                  mockMoves(res.data)
+                }, 600)
               })
           }
         })
