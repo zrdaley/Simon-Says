@@ -1,2 +1,2 @@
 # games
-A Flask App with Random Games
+A Flask App to Play Simon Says
