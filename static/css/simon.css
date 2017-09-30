@@ -3,6 +3,16 @@
     --default-yellow: #ffe787;
 }
 
+@-webkit-keyframes countdown {
+	0% { font-size: 20px; color: var(--default-yellow);;}
+    100% { font-size: 14px; color: var(--default-grey); }
+}
+
+@keyframes countdown {
+	0% { font-size: 20px; color: var(--default-yellow);;}
+    100% { font-size: 14px; color: var(--default-grey); }
+}
+
 svg {
 	display: block;
 	margin: auto;
@@ -10,8 +20,9 @@ svg {
 
 h1 {
 	text-align: center;
-	font-family: Courier New;
+	font-family: Dancing Script, cursive;
 	font-weight: lighter;
+	font-size: 50px;
 	color: var(--default-grey);
 	display: inline-block;
 	margin: 40px;
@@ -47,7 +58,7 @@ rect:hover {
 }
 
 #retry {
-	font-family: helvetica;
+	font-family: Rubik;
 	color: #ffffff;
 	font-size: 14px;
 	font-weight: bold;
@@ -65,7 +76,7 @@ rect:hover {
 
 #yourScore {
 	text-align: center;
-	font-family: helvetica;
+	font-family: Rubik;
 	font-weight: bold;
 	font-size: 40px;
 	fill: var(--default-grey);
@@ -92,10 +103,14 @@ rect:hover {
 }
 
 .timer {
-	background-color: var(--default-yellow);
 	display: inline-block;
+	font-family: Rubik;
 	padding: 10px 50px;
 	display: table;
   	margin: 20px auto;
+  	color: var(--default-grey);
+  	animation: countdown;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
 }
 

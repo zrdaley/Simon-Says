@@ -1,13 +1,11 @@
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/simon.css') }}"/>
+<link href="https://fonts.googleapis.com/css?family=Dancing+Script|Rubik" rel="stylesheet">
 <title>Simon Says</title>
 <div class=page>
   <div class="row">
-    <h1>simon says</h1>
+    <h1>Simon Says</h1>
   </div>
   <div class="row">
-  	<div class='column'>
-  	  <img class="cat" src="{{ url_for('static', filename='img/cat1.jpg') }}">
-  	</div>
   	<div class='column'>
       <svg width="400" height="400">
         <rect id="top-left" width="195" height="195" rx="20" ry="20"/>
@@ -20,12 +18,10 @@
         </g>
       </svg>
     </div>
-    <div class='column'>
-      <img class="cat" src="{{ url_for('static', filename='img/cat2.jpg') }}">
-    </div>
   </div>
   <div class="row">
-    <div id='container'></div>
+    <div id='container'>
+    </div>
   </div>
 </div>
 

@@ -121,7 +121,7 @@ class Timer extends React.Component {
         })
     }
     return (
-        <div className="timer">{this.state.secondsElapsed}</div>
+        <div className="timer">{this.state.secondsElapsed} Seconds</div>
     )
   }
 }
