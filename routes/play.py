@@ -9,6 +9,9 @@ from flask import \
     request,\
     render_template
 
+ # local
+from database import Database
+
 logger = logging.getLogger(__name__)
 
 routes = Blueprint('play_routes', __name__, template_folder='templates')
