@@ -47,7 +47,7 @@ def login():
 
 	# Check if username exists
 	if not db.user_exists(username):
-		return render_template('index.html', create_error="The username '{}' does not exist".format(username))
+		return render_template('index.html', login_error="The username '{}' does not exist".format(username))
 	
 	# Set cookie for gameplay, redirect to game
 	redirect_to_index = redirect('/play')
