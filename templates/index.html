@@ -12,6 +12,9 @@
 	  <h2>Existing User</h2><br><br>
 	  <input type="text" name="username" placeholder="username" class="input"><br>
 	  <input type="submit" value="Login" class="button">
+	  {% if login_error %}
+  			<h3>{{login_error}}</h3>
+  		{% endif %}
 	</form>
 </div>	
 
@@ -20,6 +23,9 @@
 		<h2>New User</h2><br><br>
   		<input type="text" name="username" placeholder="username" class="input"><br>
   		<input type="submit" value="Create Account" class="button">
+  		{% if create_error %}
+  			<h3>{{create_error}}</h3>
+  		{% endif %}
 	</form>
 </div>
 

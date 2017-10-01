@@ -1,5 +1,6 @@
 var moves = []
 var simons_moves = []
+var rendered_timer;
 
 var moves_dictionary = {
     "#top-left": 1,
@@ -16,11 +17,11 @@ var rev_moves_dictionary = {
 }
 
 $(document).ready(function () {
-  ReactDOM.render(<Timer />, document.getElementById('container'))
-  $('#top-left').click(function(){ click('#top-left', false, 50)})
-  $('#top-right').click(function(){ click('#top-right', false, 50)})
-  $('#bottom-left').click(function(){ click('#bottom-left', false, 50)})
-  $('#bottom-right').click(function(){ click('#bottom-right', false, 50)})
+  rendered_timer = ReactDOM.render(<Timer />, document.getElementById('container'))
+  $('#top-left').click(function(){ click('#top-left', 50)})
+  $('#top-right').click(function(){ click('#top-right', 50)})
+  $('#bottom-left').click(function(){ click('#bottom-left', 50)})
+  $('#bottom-right').click(function(){ click('#bottom-right', 50)})
 })
 
 function loss(){
@@ -29,7 +30,7 @@ function loss(){
   moves = []
   var retry = $('<button id="retry">LOSS. TRY AGAIN?</button>')
   retry.click(function () {
-        ReactDOM.render(<Timer />, document.getElementById('container'))
+        rendered_timer = ReactDOM.render(<Timer />, document.getElementById('container'))
   })
   $("#container").html(retry)
 }
@@ -50,15 +51,19 @@ function click(id, responseTime){
       .then(res => {
         if (!res.data.valid){
           $("#yourScore").html(res.data.user)
-          $("#simonsScore").html(res.data.simon)
           loss()
         }
         else if(moves.length == simons_moves.length){
           moves = []
           $("#yourScore").html(res.data.user)
-          $("#simonsScore").html(res.data.simon)
-          ReactDOM.unmountComponentAtNode(document.getElementById('container'))
-          ReactDOM.render(<Timer />, document.getElementById('container'))
+          rendered_timer.state = {secondsElapsed: 30}
+          axios.post('/get-move', {moves: simons_moves})
+          .then(res => {
+            simons_moves = res.data.moves
+            setTimeout(function() {
+              mockMoves(res.data.moves)
+            }, 600)
+          })
         }
       })
 }
@@ -104,7 +109,6 @@ class Timer extends React.Component {
         .then(res => {
           if (!res.data.valid){
             $("#yourScore").html(res.data.user)
-            $("#simonsScore").html(res.data.simon)
             loss()
           } else {
             axios.post('/get-move', {moves: simons_moves})
@@ -112,7 +116,6 @@ class Timer extends React.Component {
                 this.state.secondsElapsed = 30
                 simons_moves = res.data.moves
                 $("#yourScore").html(res.data.user)
-                $("#simonsScore").html(res.data.simon)
                 setTimeout(function() {
                   mockMoves(res.data.moves)
                 }, 600)
