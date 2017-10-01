@@ -1,6 +1,8 @@
 :root {
     --default-grey: #a1a1a1;
     --default-yellow: #ffe787;
+    --default-teal: #6ba9a5;
+    --default-light-grey: #f1f1f1;
 }
 
 @-webkit-keyframes countdown {
@@ -28,10 +30,30 @@ h1 {
 	margin: 40px;
 }
 
+h2 {
+	text-align: center;
+	font-family: Rubik;
+	font-weight: lighter;
+	font-size: 20px;
+	color: var(--default-teal);
+	display: inline-block;
+	margin: 0px;
+	padding: 0px;
+}
+
 rect:hover {
 	opacity: 0.5;
 	cursor: pointer; 
 }
+
+form {
+	background: var(--default-light-grey);
+	width: 300px;
+	display: inline-block;
+    text-align: center;
+    padding: 40px;
+}
+
 
 #top-left {
 	fill: #e3f09b;
@@ -82,6 +104,28 @@ rect:hover {
 	fill: var(--default-grey);
 }
 
+.button {
+    background-color: var(--default-yellow);
+    border: none;
+    color: #8c8c8c;
+    font-family: Rubik;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    border-radius: 5px;
+    margin-top: 2%;
+    width: 200px;
+}
+
+.auth-form{
+	width: 100%;
+}
+
+.button:hover {
+    background-color: #d8ac3c;
+}
+
 .cat {
 	height: 200px;
 	display:inline-block;
@@ -94,6 +138,18 @@ rect:hover {
   	text-align: center;
 	width: 33%;
 	height: 420px;
+}
+
+.input {
+    border: none;
+    border-radius: 5px;
+    color: #8c8c8c;
+    font-family: Rubik;
+    padding: 15px 15px;
+    text-decoration: none;
+    font-size: 12px;
+    margin-top: 2%;
+    width: 200px;
 }
 
 .row {

@@ -20,7 +20,7 @@ moves = []
 users_score = 0
 
 
-@routes.route("/")
+@routes.route("/play")
 def simon_says():
 	logger.info('/')
 	return render_template('simon_says.html')

@@ -3,6 +3,7 @@ from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from database import db
 from routes.play import routes as play_routes # noqa
+from routes.index import routes as index_routes # noqa
 
 
 def create_app():
@@ -12,6 +13,7 @@ def create_app():
 	app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 	db.init_app(app) 
 	app.register_blueprint(play_routes)
+	app.register_blueprint(index_routes)
 	return app
 
 

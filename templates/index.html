@@ -1,0 +1,27 @@
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/simon.css') }}"/>
+<link href="https://fonts.googleapis.com/css?family=Dancing+Script|Rubik" rel="stylesheet">
+<title>Simon Says</title>
+
+<div class="row">
+	<h1>Simon Says</h1>
+</div>
+
+<div class="row auth-form">
+	
+	<form action="{{ url_for('index_routes.login') }}">
+	  <h2>Existing User</h2><br><br>
+	  <input type="text" name="username" placeholder="username" class="input"><br>
+	  <input type="submit" value="Login" class="button">
+	</form>
+</div>	
+
+<div class="row auth-form">
+	<form action="{{ url_for('index_routes.create') }}">
+		<h2>New User</h2><br><br>
+  		<input type="text" name="username" placeholder="username" class="input"><br>
+  		<input type="submit" value="Create Account" class="button">
+	</form>
+</div>
+
+
+
