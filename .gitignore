@@ -1,0 +1,4 @@
+# Python things
+*.pyc
+
+.DS_Store
