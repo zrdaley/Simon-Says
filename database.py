@@ -9,7 +9,6 @@ from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy.orm.attributes import flag_modified
 
 # local
-from config import CONFIG
 
 db = SQLAlchemy()
 
