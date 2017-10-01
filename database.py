@@ -8,8 +8,6 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy.orm.attributes import flag_modified
 
-# local
-
 db = SQLAlchemy()
 
 logger = logging.getLogger(__name__)
