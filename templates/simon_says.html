@@ -6,6 +6,12 @@
     <h1>Simon Says</h1>
   </div>
   <div class="row">
+    <div class="column score">
+      <h4>Username</h4><br>
+      <h5> {{ user }} </h5><br><br>
+      <h4>High Score</h4><br>
+      <h5>{{ high_score }}</h5>
+    </div>
   	<div class='column'>
       <svg width="400" height="400">
         <rect id="top-left" width="195" height="195" rx="20" ry="20"/>
@@ -17,6 +23,8 @@
           <text id="yourScore" x="189" y="212"></text>
         </g>
       </svg>
+    </div>
+    <div class="column">
     </div>
   </div>
   <div class="row">

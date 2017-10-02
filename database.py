@@ -51,6 +51,10 @@ class Database(object):
         user = Players.query.filter_by(username=username).first()
         return user.current_score
 
+    def get_high_score(self, username):
+        user = Players.query.filter_by(username=username).first()
+        return user.high_score
+
     def set_score(self, username, value):
         user = Players.query.filter_by(username=username).first()
         user.current_score = value

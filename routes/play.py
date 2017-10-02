@@ -23,7 +23,7 @@ def simon_says():
 	user = request.cookies.get('simon-says-by-zen')
 	if not user:
 		return redirect(url_for('index'))
-	return render_template('simon_says.html')
+	return render_template('simon_says.html', user=user, high_score=db.get_high_score(user))
 
 @routes.route("/get-move", methods=['POST', 'GET'])
 def get_move():
