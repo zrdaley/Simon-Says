@@ -40,6 +40,8 @@ def create():
 @routes.route("/login")
 def login():
 	username = request.args.get('username')
+
+	# Filter username
 	if not username:
 		return render_template('index.html', login_error="Please enter a valid username")
 	if not username.isalnum():
@@ -54,5 +56,4 @@ def login():
 	response = current_app.make_response(redirect_to_index)
 	response.set_cookie('simon-says-by-zen',value=username)
 	return response
-	
 	return render_template('index.html')

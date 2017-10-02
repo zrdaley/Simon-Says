@@ -16,6 +16,7 @@ var rev_moves_dictionary = {
     4: "#bottom-right", 
 }
 
+
 $(document).ready(function () {
   rendered_timer = ReactDOM.render(<Timer />, document.getElementById('container'))
   $('#top-left').click(function(){ click('#top-left', 50)})
@@ -35,6 +36,14 @@ function loss(){
   $("#container").html(retry)
 }
 
+function clickResponse(id, timeout){
+  var originalColour = $(id).css('fill')
+  $(id).css('fill', 'grey')
+  setTimeout(function() {
+      $(id).css('fill', originalColour)
+    }, timeout)
+}
+
 function mockMoves(moves, index=0) {
   clickResponse(rev_moves_dictionary[moves[index]], 100)
     setTimeout(function() {
@@ -51,6 +60,9 @@ function click(id, responseTime){
       .then(res => {
         $("#yourScore").html(res.data.user)
         if (!res.data.valid){
+          if(res.data.high_score){
+            $("#highScore").html(res.data.high_score)
+          } 
           loss()
         }
         else if(moves.length == simons_moves.length){
@@ -67,13 +79,6 @@ function click(id, responseTime){
       })
 }
 
-function clickResponse(id, timeout){
-  var originalColour = $(id).css('fill')
-  $(id).css('fill', 'grey')
-  setTimeout(function() {
-      $(id).css('fill', originalColour)
-    }, timeout)
-}
 
 class Timer extends React.Component {
   constructor(props) {
@@ -108,8 +113,12 @@ class Timer extends React.Component {
         .then(res => {
           if (!res.data.valid){
             $("#yourScore").html(res.data.user)
+            if(res.data.high_score){
+              $("#highScore").html(res.data.high_score)
+            } 
             loss()
-          } else {
+          }
+          else {
             axios.post('/get-move', {moves: simons_moves})
               .then(res => {
                 this.state.secondsElapsed = 30

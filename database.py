@@ -1,5 +1,4 @@
 # stdlib
-import logging
 from flask import current_app
 from random import randint
 
@@ -10,7 +9,6 @@ from sqlalchemy.orm.attributes import flag_modified
 
 db = SQLAlchemy()
 
-logger = logging.getLogger(__name__)
 
 class Players(db.Model):
     username = db.Column(db.String(100), primary_key=True)
@@ -27,12 +25,6 @@ class Players(db.Model):
 
 
 class Database(object):
-
-    def user_exists(self, username):
-        user = Players.query.filter_by(username=username).first()
-        if user:
-            return True
-        return False
 
     def add_move(self, username):
         user = Players.query.filter_by(username=username).first()
@@ -55,22 +47,22 @@ class Database(object):
         user = Players.query.filter_by(username=username).first()
         return user.high_score
 
-    def set_score(self, username, value):
-        user = Players.query.filter_by(username=username).first()
-        user.current_score = value
-        db.session.commit()
-
     def increment_score(self, username):
         user = Players.query.filter_by(username=username).first()
         user.current_score += 1
         score = user.current_score
         db.session.commit()
         return score
-
+    
     def reset_moves(self, username):
         user = Players.query.filter_by(username=username).first()
         user.moves = []
         flag_modified(user, "moves")
+        db.session.commit()
+
+    def set_score(self, username, value):
+        user = Players.query.filter_by(username=username).first()
+        user.current_score = value
         db.session.commit()
 
     def update_high_score(self, username):
@@ -78,6 +70,11 @@ class Database(object):
         if user.high_score is None or user.current_score > user.high_score:
             user.high_score = user.current_score
             db.session.commit()
+            return user.high_score
+        return None
 
-
-
+    def user_exists(self, username):
+        user = Players.query.filter_by(username=username).first()
+        if user:
+            return True
+        return False

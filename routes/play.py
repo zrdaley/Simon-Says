@@ -21,6 +21,8 @@ routes = Blueprint('play_routes', __name__, template_folder='templates')
 @routes.route("/play")
 def simon_says():
 	user = request.cookies.get('simon-says-by-zen')
+
+	# Check if the user has credentials
 	if not user:
 		return redirect(url_for('index'))
 	return render_template('simon_says.html', user=user, high_score=db.get_high_score(user))
@@ -29,15 +31,15 @@ def simon_says():
 def get_move():
 	user = request.cookies.get('simon-says-by-zen')
 	data = json.loads(request.data)
-	
 	moves = data.get('moves')
 	new_game = data.get('new')
 
+	# Check if the user has started a new game
 	if new_game:
-		current_app.logger.debug("RESTARTING")
 		db.set_score(user, 0)
 		db.reset_moves(user)
 
+	# Get the users score, get a new move
 	users_score = db.get_score(user)
 	moves = db.add_move(user)
 	return json.dumps({'moves': moves, 'user': users_score})
@@ -46,13 +48,8 @@ def get_move():
 def check_move():
 	user = request.cookies.get('simon-says-by-zen')
 	data = json.loads(request.data)
-	
 	simons_moves = data.get('simons_moves')
 	users_moves = data.get('moves')
-
-	current_app.logger.info("moves: {}".format(str(users_moves)))
-	current_app.logger.info("sim_moves: {}".format(str(simons_moves)))
-	
 	timeout = data.get('timeout')
 	
 	len_users_moves = len(users_moves)
@@ -60,23 +57,24 @@ def check_move():
 
 	users_score = db.get_score(user)
 
+	def lose():
+		db.reset_moves(user)
+		new_hs = db.update_high_score(user)
+		if new_hs is None:
+			return {'valid': False, 'user': users_score}
+		return {'valid': False, 'user': users_score, 'high_score': new_hs}
+		
 	# Check if the user has made a move
 	if len_users_moves == 0:
-		db.reset_moves(user)
-		db.update_high_score(user)
-		return json.dumps({'valid': False, 'user': users_score})
+		return json.dumps(lose())
 
 	# Check if the user has run out of time
 	if timeout and len_users_moves < len_simons_moves:
-		db.reset_moves(user)
-		db.update_high_score(user)
-		return json.dumps({'valid': False, 'user': users_score})
+		return json.dumps(lose())
 
 	# A user should never have more moves than simon, but JIC
 	if len_users_moves > len_simons_moves:
-		db.reset_moves(user)
-		db.update_high_score(user)
-		return json.dumps({'valid': False, 'user': users_score})
+		return json.dumps(lose())
 
 	# Cast simons moves to the length of user moves and compare
 	simons_moves = simons_moves[:len_users_moves]
@@ -85,6 +83,5 @@ def check_move():
 			users_score = db.increment_score(user)
 			current_app.logger.info("INC")
 		return json.dumps({'valid': True, 'user': users_score})
-	db.reset_moves(user)
-	db.update_high_score(user)
-	return json.dumps({'valid': False, 'user': users_score})
+	
+	return json.dumps(lose())
