@@ -8,7 +8,8 @@ from flask import \
     current_app, \
     request,\
     redirect, \
-    render_template
+    render_template, \
+    url_for
 
  # local
 from database import Database
@@ -24,7 +25,7 @@ def simon_says():
 
 	# Check if the user has credentials
 	if not user:
-		return redirect(url_for('index'))
+		return redirect(url_for('index_routes.login'))
 	return render_template('simon_says.html', user=user, high_score=db.get_high_score(user))
 
 @routes.route("/get-move", methods=['POST', 'GET'])
