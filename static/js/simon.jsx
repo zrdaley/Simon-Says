@@ -49,13 +49,12 @@ function click(id, responseTime){
   moves.push(moves_dictionary[id])
   axios.post('/check-move', {moves: moves, simons_moves: simons_moves})
       .then(res => {
+        $("#yourScore").html(res.data.user)
         if (!res.data.valid){
-          $("#yourScore").html(res.data.user)
           loss()
         }
         else if(moves.length == simons_moves.length){
           moves = []
-          $("#yourScore").html(res.data.user)
           rendered_timer.state = {secondsElapsed: 30}
           axios.post('/get-move', {moves: simons_moves})
           .then(res => {

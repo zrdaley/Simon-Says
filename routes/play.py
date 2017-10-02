@@ -49,6 +49,9 @@ def check_move():
 	
 	simons_moves = data.get('simons_moves')
 	users_moves = data.get('moves')
+
+	current_app.logger.info("moves: {}".format(str(users_moves)))
+	current_app.logger.info("sim_moves: {}".format(str(simons_moves)))
 	
 	timeout = data.get('timeout')
 	
@@ -59,19 +62,29 @@ def check_move():
 
 	# Check if the user has made a move
 	if len_users_moves == 0:
+		db.reset_moves(user)
+		db.update_high_score(user)
 		return json.dumps({'valid': False, 'user': users_score})
 
 	# Check if the user has run out of time
 	if timeout and len_users_moves < len_simons_moves:
+		db.reset_moves(user)
+		db.update_high_score(user)
 		return json.dumps({'valid': False, 'user': users_score})
 
 	# A user should never have more moves than simon, but JIC
 	if len_users_moves > len_simons_moves:
+		db.reset_moves(user)
+		db.update_high_score(user)
 		return json.dumps({'valid': False, 'user': users_score})
 
 	# Cast simons moves to the length of user moves and compare
 	simons_moves = simons_moves[:len_users_moves]
 	if simons_moves == users_moves:
-		users_score = db.increment_score(user)
+		if len_simons_moves == len_users_moves:
+			users_score = db.increment_score(user)
+			current_app.logger.info("INC")
 		return json.dumps({'valid': True, 'user': users_score})
+	db.reset_moves(user)
+	db.update_high_score(user)
 	return json.dumps({'valid': False, 'user': users_score})

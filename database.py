@@ -65,7 +65,6 @@ class Database(object):
         user.current_score += 1
         score = user.current_score
         db.session.commit()
-        current_app.logger.debug(score)
         return score
 
     def reset_moves(self, username):
@@ -73,3 +72,12 @@ class Database(object):
         user.moves = []
         flag_modified(user, "moves")
         db.session.commit()
+
+    def update_high_score(self, username):
+        user = Players.query.filter_by(username=username).first()
+        if user.high_score is None or user.current_score > user.high_score:
+            user.high_score = user.current_score
+            db.session.commit()
+
+
+
