@@ -26,10 +26,10 @@ def create():
 	username = request.args.get('username')
 
 	# Filter username
-	if len(username) > MAX_USER_LENGTH:
-		return render_template('index.html', create_error="Username cannot exceed 100 characters")
 	if not username:
 		return render_template('index.html', create_error="Please enter a valid username")
+	if len(username) > MAX_USER_LENGTH:
+		return render_template('index.html', create_error="Username cannot exceed 100 characters")
 	if not username.isalnum():
 		return render_template('index.html', create_error="Usernames can only contain a-z, A-Z, or 0-9")
 
@@ -50,10 +50,10 @@ def login():
 	username = request.args.get('username')
 
 	# Filter username
-	if len(username) > MAX_USER_LENGTH:
-		return render_template('index.html', login_error="Username cannot exceed 100 characters")
 	if not username:
 		return render_template('index.html', login_error="Please enter a valid username")
+	if len(username) > MAX_USER_LENGTH:
+		return render_template('index.html', login_error="Username cannot exceed 100 characters")
 	if not username.isalnum():
 		return render_template('index.html', login_error="Usernames can only contain a-z, A-Z, or 0-9")
 
