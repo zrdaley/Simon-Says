@@ -14,22 +14,17 @@ class Players(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100))
     high_score = db.Column(db.Integer)
-    current_score = db.Column(db.Integer)
-    moves = db.Column(JSON)
 
-
-    def __init__(self, uid, un, hs, cs, m):
+    def __init__(self, uid, un, hs):
         self.user_id = uid,
         self.username = un
         self.high_score = hs
-        self.current_score = cs
-        self.moves = m
 
 
 class Database(object):
 
     def create_new_user(self, username, user_id):
-        user = Players(user_id, username, None, 0, [])
+        user = Players(user_id, username, None)
         db.session.add(user)
         db.session.commit()
 

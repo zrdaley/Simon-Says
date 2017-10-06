@@ -37,13 +37,13 @@ def create():
 		return render_template('index.html', create_error="Usernames can only contain a-z, A-Z, or 0-9")
 
 	# Check if username exists
-	if db.user_exists(username):
+	if db.username_exists(username):
 		return render_template('index.html', create_error="The username '{}' is already taken".format(username))
 	
 	# Create user ID, add user to db, set cookie for gameplay, redirect to game
 	user_id = uuid.uuid4()
 	session['user_id'] = user_id 
-	db.create_new_user(username, user_id)
+	db.create_new_user(username, str(user_id))
 	return redirect(url_for('play_routes.simon_says'))
 
 @routes.route("/login")
