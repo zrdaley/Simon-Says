@@ -3,6 +3,7 @@
 <title>Simon Says</title>
 <div class=page>
   <div class="row">
+    <a class="button logout-button" href="{{ url_for('index_routes.logout') }}">Logout</a>
     <h1>Simon Says</h1>
   </div>
   <div class="row">
@@ -29,7 +30,7 @@
     <div class="column">
       <div class="stats">
         <h4>Top User Stats</h4>
-        <table class="highScores">
+        <table class="high-scores">
           <tr>
             <th>Score</th>
             <th>User</th> 

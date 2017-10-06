@@ -28,6 +28,7 @@ h1 {
 	color: var(--default-grey);
 	display: inline-block;
 	margin: 40px;
+	position: center;
 }
 
 h2 {
@@ -113,6 +114,7 @@ form {
 }
 
 #retry {
+	border-radius: 5px;
 	font-family: Rubik;
 	color: #ffffff;
 	font-size: 14px;
@@ -218,12 +220,18 @@ form {
 	height: 120px;
 }
 
-.highScores { 
+.high-scores { 
 	width: 100%;
 	text-align: left;
 	font-family: Rubik;
 	color: var(--default-grey);
 	font-size: 14px;
 	padding-top: 15px;
+}
+
+.logout-button {
+	position: absolute;
+	right:30;
+	width: 50px;
 }
 

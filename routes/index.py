@@ -65,3 +65,9 @@ def login():
 	user_id = db.get_user_id(username)
 	session['user_id'] = user_id 
 	return redirect(url_for('play_routes.simon_says'))
+
+@routes.route("/logout")
+def logout():
+	session.clear()
+	return redirect(url_for('index_routes.index'))
+	
