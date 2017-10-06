@@ -1,3 +1,4 @@
+import datetime
 import os 
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -14,6 +15,9 @@ def create_app():
 	db.init_app(app) 
 	app.register_blueprint(play_routes)
 	app.register_blueprint(index_routes)
+	
+	app.secret_key = os.environ['APP_SECRET_KEY']
+	app.permanent_session_lifetime = datetime.timedelta(hours=8)
 	return app
 
 

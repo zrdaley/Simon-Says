@@ -7,7 +7,9 @@ from flask import \
     current_app, \
     request,\
     redirect, \
-    render_template
+    render_template, \
+    session, \
+    url_for
 
  # local
 from database import Database
@@ -16,6 +18,7 @@ routes = Blueprint('index_routes', __name__, template_folder='templates')
 db = Database()
 COOKIE_TIMEOUT = 28800
 MAX_USER_LENGTH = 50
+
 
 @routes.route("/")
 def index():
@@ -37,13 +40,11 @@ def create():
 	if db.user_exists(username):
 		return render_template('index.html', create_error="The username '{}' is already taken".format(username))
 	
-	# Add username to db, set cookie for gameplay, redirect to game
+	# Create user ID, add user to db, set cookie for gameplay, redirect to game
 	user_id = uuid.uuid4()
+	session['user_id'] = user_id 
 	db.create_new_user(username, user_id)
-	redirect_to_index = redirect('/play')
-	response = current_app.make_response(redirect_to_index)
-	response.set_cookie('simon-says-by-zen',value=str(user_id), max_age=COOKIE_TIMEOUT)
-	return response
+	return redirect(url_for('play_routes.simon_says'))
 
 @routes.route("/login")
 def login():
@@ -58,13 +59,10 @@ def login():
 		return render_template('index.html', login_error="Usernames can only contain a-z, A-Z, or 0-9")
 
 	# Check if username exists
-	if not db.user_exists(username):
+	if not db.username_exists(username):
 		return render_template('index.html', login_error="The username '{}' does not exist".format(username))
 	
 	# Set cookie for gameplay, redirect to game
 	user_id = db.get_user_id(username)
-	redirect_to_index = redirect('/play')
-	response = current_app.make_response(redirect_to_index)
-	response.set_cookie('simon-says-by-zen', value=str(user_id), max_age=COOKIE_TIMEOUT)
-	return response
-	return render_template('index.html')
+	session['user_id'] = user_id 
+	return redirect(url_for('play_routes.simon_says'))
