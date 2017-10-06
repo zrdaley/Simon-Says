@@ -41,7 +41,7 @@ def create():
 		return render_template('index.html', create_error="The username '{}' is already taken".format(username))
 	
 	# Create user ID, add user to db, set cookie for gameplay, redirect to game
-	user_id = uuid.uuid4()
+	user_id = uuid.uuid4().hex
 	session['user_id'] = user_id 
 	db.create_new_user(username, str(user_id))
 	return redirect(url_for('play_routes.simon_says'))

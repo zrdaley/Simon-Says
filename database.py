@@ -4,15 +4,15 @@ from random import randint
 
 # 3rd party
 from flask.ext.sqlalchemy import SQLAlchemy
-from sqlalchemy.dialects.postgresql import JSON
+from sqlalchemy.dialects.postgresql import JSON, UUID
 from sqlalchemy.orm.attributes import flag_modified
 
 db = SQLAlchemy()
 
 
 class Players(db.Model):
-    user_id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(100))
+    user_id = db.Column(db.String(100), primary_key=True)
+    username = db.Column(db.String(50))
     high_score = db.Column(db.Integer)
 
     def __init__(self, uid, un, hs):
