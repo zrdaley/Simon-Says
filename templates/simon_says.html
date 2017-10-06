@@ -6,11 +6,13 @@
     <h1>Simon Says</h1>
   </div>
   <div class="row">
-    <div class="column score">
-      <h4>Username</h4><br>
-      <h5> {{ user }} </h5><br><br>
-      <h4>High Score</h4><br>
-      <h5 id="highScore">{{ high_score }}</h5>
+    <div class="column">
+      <div class="score">
+        <h4>Username</h4><br>
+        <h5> {{ user }} </h5><br><br>
+        <h4>High Score</h4><br>
+        <h5 id="highScore">{{ high_score }}</h5>
+      </div>
     </div>
   	<div class='column'>
       <svg width="400" height="400">
@@ -25,6 +27,21 @@
       </svg>
     </div>
     <div class="column">
+      <div class="stats">
+        <h4>Top User Stats</h4>
+        <table class="highScores">
+          <tr>
+            <th>Score</th>
+            <th>User</th> 
+          </tr>
+          {% for user in top_users | reverse %}
+          <tr>
+            <td>{{ user.high_score }}</td> 
+            <td>{{ user.username }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
     </div>
   </div>
   <div class="row">

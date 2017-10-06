@@ -32,6 +32,10 @@ class Database(object):
         user = Players.query.filter_by(user_id=user_id).first()
         return user.high_score
 
+    def get_top_users(self):
+        top_users = Players.query.filter(Players.high_score != None).order_by(Players.high_score).limit(3)
+        return top_users
+
     def get_username(self, user_id):
         user = Players.query.filter_by(user_id=user_id).first()
         if user:

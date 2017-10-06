@@ -39,7 +39,7 @@ def simon_says():
 	if not user:
 		return redirect(url_for('index_routes.login'))
 
-	return render_template('simon_says.html', user=user, high_score=db.get_high_score(user_id))
+	return render_template('simon_says.html', user=user, high_score=db.get_high_score(user_id), top_users=db.get_top_users())
 
 @routes.route("/get-move", methods=['POST', 'GET'])
 def get_move():
