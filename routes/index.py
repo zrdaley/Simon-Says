@@ -16,7 +16,6 @@ from database import Database
 
 routes = Blueprint('index_routes', __name__, template_folder='templates')
 db = Database()
-COOKIE_TIMEOUT = 28800
 MAX_USER_LENGTH = 50
 
 

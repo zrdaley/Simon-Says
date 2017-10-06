@@ -108,5 +108,4 @@ def check_move():
 			users_score += 1
 			session['score'] = users_score
 		return json.dumps({'valid': True, 'user': users_score})
-	
 	return lose()
