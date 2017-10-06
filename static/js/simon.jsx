@@ -18,7 +18,12 @@ var rev_moves_dictionary = {
 
 
 $(document).ready(function () {
-  rendered_timer = ReactDOM.render(<Timer />, document.getElementById('container'))
+  var start = $('<button id="retry">START</button>')
+  start.click(function () {
+        rendered_timer = ReactDOM.render(<Timer />, document.getElementById('container'))
+  })
+  $("#container").html(start)
+
   $('#top-left').click(function(){ click('#top-left', 50)})
   $('#top-right').click(function(){ click('#top-right', 50)})
   $('#bottom-left').click(function(){ click('#bottom-left', 50)})
