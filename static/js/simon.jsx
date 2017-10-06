@@ -108,7 +108,7 @@ class Timer extends React.Component {
   }
 
   render() {
-    if(this.state.secondsElapsed < 0){
+    if(this.state.secondsElapsed <= 0){
       axios.post('/check-move', {moves: moves, simons_moves: simons_moves, timeout: true})
         .then(res => {
           if (!res.data.valid){
