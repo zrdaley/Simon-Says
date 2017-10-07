@@ -39,7 +39,7 @@ class Database(object):
 
     def _hash_password(self, password):
         # Salt and hash password for storage
-        h = hashlib.md5(password + os.environ['SALT'])
+        h = hashlib.md5((password + os.environ['SALT']).encode('utf-8'))
         password_hash = h.hexdigest()
         return password_hash
 
