@@ -11,6 +11,7 @@
 	<form action="{{ url_for('index_routes.login') }}">
 	  <h2>Existing User</h2><br><br>
 	  <input type="text" name="username" placeholder="username" class="input"><br>
+	  <input type="password" name="password" placeholder="password" class="input"><br>
 	  <input type="submit" value="Login" class="button">
 	  {% if login_error %}
   			<h3>{{login_error}}</h3>
@@ -22,6 +23,7 @@
 	<form action="{{ url_for('index_routes.create') }}">
 		<h2>New User</h2><br><br>
   		<input type="text" name="username" placeholder="username" class="input"><br>
+  		<input type="password" name="password" placeholder="password" class="input"><br>
   		<input type="submit" value="Create Account" class="button">
   		{% if create_error %}
   			<h3>{{create_error}}</h3>

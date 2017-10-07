@@ -21,6 +21,12 @@ MAX_USER_LENGTH = 50
 
 @routes.route("/")
 def index():
+	login_error = request.args.get('login_error')
+	create_error = request.args.get('create_error')
+	if login_error:
+		return render_template('index.html', login_error=login_error)
+	if create_error:
+		return render_template('index.html', create_error=create_error)
 	return render_template('index.html')
 
 @routes.route("/create_account")
@@ -29,15 +35,15 @@ def create():
 
 	# Filter username
 	if not username:
-		return render_template('index.html', create_error="Please enter a valid username")
+		return redirect(url_for('index_routes.index', create_error="Please enter a valid username"))
 	if len(username) > MAX_USER_LENGTH:
-		return render_template('index.html', create_error="Username cannot exceed 100 characters")
+		return redirect(url_for('index_routes.index', create_error="Username cannot exceed 100 characters"))
 	if not username.isalnum():
-		return render_template('index.html', create_error="Usernames can only contain a-z, A-Z, or 0-9")
+		return redirect(url_for('index_routes.index', create_error="Usernames can only contain a-z, A-Z, or 0-9"))
 
 	# Check if username exists
 	if db.username_exists(username):
-		return render_template('index.html', create_error="The username '{}' is already taken".format(username))
+		return redirect(url_for('index_routes.index', create_error="The username '{}' is already taken".format(username)))
 	
 	# Create user ID, add user to db, set cookie for gameplay, redirect to game
 	user_id = uuid.uuid4().hex
@@ -51,15 +57,15 @@ def login():
 
 	# Filter username
 	if not username:
-		return render_template('index.html', login_error="Please enter a valid username")
+		return redirect(url_for('index_routes.index', login_error="Please enter a valid username"))
 	if len(username) > MAX_USER_LENGTH:
-		return render_template('index.html', login_error="Username cannot exceed 100 characters")
+		return redirect(url_for('index_routes.index', login_error="Username cannot exceed 100 characters"))
 	if not username.isalnum():
-		return render_template('index.html', login_error="Usernames can only contain a-z, A-Z, or 0-9")
+		return redirect(url_for('index_routes.index', login_error="Usernames can only contain a-z, A-Z, or 0-9"))
 
 	# Check if username exists
 	if not db.username_exists(username):
-		return render_template('index.html', login_error="The username '{}' does not exist".format(username))
+		return redirect(url_for('index_routes.index', login_error="The username '{}' does not exist".format(username)))
 	
 	# Set cookie for gameplay, redirect to game
 	user_id = db.get_user_id(username)
