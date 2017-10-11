@@ -1,14 +1,10 @@
 # stdlib
 import os
 import hashlib
-import json
-from random import randint
 
 # 3rd party
 from flask import current_app
 from flask.ext.sqlalchemy import SQLAlchemy
-from sqlalchemy.dialects.postgresql import JSON, UUID
-from sqlalchemy.orm.attributes import flag_modified
 
 db = SQLAlchemy()
 
