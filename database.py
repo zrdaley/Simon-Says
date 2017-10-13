@@ -53,7 +53,7 @@ class Database(object):
         return user.high_score
 
     def get_top_users(self):
-        top_users = Accounts.query.filter(Accounts.high_score != None).order_by(Accounts.high_score).limit(3)
+        top_users = Accounts.query.filter(Accounts.high_score != None).order_by(Accounts.high_score.desc()).limit(3)
         return top_users
 
     def get_username(self, user_id):

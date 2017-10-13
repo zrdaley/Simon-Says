@@ -35,7 +35,7 @@
             <th>Score</th>
             <th>User</th> 
           </tr>
-          {% for user in top_users | reverse %}
+          {% for user in top_users %}
           <tr>
             <td>{{ user.high_score }}</td> 
             <td>{{ user.username }}</td>
