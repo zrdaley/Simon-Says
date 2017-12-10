@@ -25,5 +25,6 @@ Play at https://simon-says-by-zen.herokuapp.com
     - APP SECRET KEY: This is a randon key used to encrpyt cookies
     - SALT: This is a random key used to enhance password encryption (See: https://en.wikipedia.org/wiki/Salt_(cryptography))
 6. Return to the root directory for the repository
-7. Run `python app.py` to start the application
-8. The local application will be available via `127.0.0.1:5000` in your web browser
+7. Install requirements with `pip install -r requirements.txt`
+8. Run `python app.py` to start the application
+9. The local application will be available via `127.0.0.1:5000` in your web browser

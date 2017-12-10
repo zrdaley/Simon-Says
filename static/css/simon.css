@@ -132,6 +132,7 @@ form {
 }
 
 #yourScore {
+	text-anchor: middle;
 	text-align: center;
 	font-family: Rubik;
 	font-weight: bold;
